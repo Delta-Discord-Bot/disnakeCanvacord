@@ -1,4 +1,4 @@
-__version__ = "3.3.9"
+__version__ = "3.4.0"
 
 from .generators import rankcard
 from .generators import trigger
