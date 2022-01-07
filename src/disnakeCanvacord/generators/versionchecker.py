@@ -7,10 +7,10 @@ try:
 except ImportError:
     from pip._vendor.packaging.version import parse
 
-thisversion = "3.3.8"
+thisversion = "3.3.9"
 
 async def checkversion():
-        url_pattern = 'https://pypi.python.org/pypi/canvacord/json'
+        url_pattern = 'https://pypi.python.org/pypi/disnakeCanvacord/json'
         req = requests.get(url_pattern)
         version = parse('0')
         try:
@@ -25,7 +25,7 @@ async def checkversion():
                     pass
                 else:
                     if parse(str(thisversion)) < parse(str(version)):
-                        print(f"Canvacord is on Version {version} but you are only on Version {thisversion} Please Update for all the newest bug fixes and features!")
+                        print(f"disnakeCanvacord is on Version {version} but you are only on Version {thisversion} Please Update for all the newest bug fixes and features!")
                     else:
                         pass
         except Exception as e:
