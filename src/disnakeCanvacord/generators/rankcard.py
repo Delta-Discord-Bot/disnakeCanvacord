@@ -5,13 +5,13 @@ from PIL import ImageColor
 import asyncio
 import aiohttp
 from io import BytesIO
-import discord
+import disnake
 from typing import Union
-from canvacord.generators.versionchecker import checkversion
+from disnakeCanvacord.generators.versionchecker import checkversion
 
-async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
+async def getavatar(user: Union[disnake.User, disnake.Member]) -> bytes:
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    disver = str(discord.__version__)
+    disver = str(disnake.__version__)
     if disver.startswith("1"):
         async with session.get(str(user.avatar_url)) as response:
             avatarbytes = await response.read()
@@ -133,13 +133,13 @@ async def rankcard(user, username, currentxp, lastxp, nextxp, level, rank, backg
                     draw.ellipse((160, 170, 208, 218), fill=0)
                     try:
                         if status == None:
-                            if user.status == discord.Status.online:
+                            if user.status == disnake.Status.online:
                                 draw.ellipse((165, 175, 204, 214), fill=(67,181,129))
-                            elif user.status == discord.Status.offline:
+                            elif user.status == disnake.Status.offline:
                                 draw.ellipse((165, 175, 204, 214), fill=(116, 127, 141))
-                            elif user.status == discord.Status.dnd:
+                            elif user.status == disnake.Status.dnd:
                                 draw.ellipse((165, 175, 204, 214), fill=(240,71,71))
-                            elif user.status == discord.Status.idle:
+                            elif user.status == disnake.Status.idle:
                                 draw.ellipse((165, 175, 204, 214), fill=(250,166,26))
                         else:
                             if status == "online":
@@ -171,7 +171,7 @@ async def rankcard(user, username, currentxp, lastxp, nextxp, level, rank, backg
                         changeaxis = len("Rank #{} | Level {}".format(rank, level)) - 8
                         xaxis = 740 - (23*changeaxis)
                     draw.text((xaxis, 55), "Rank #{} | Level {}".format(rank, level), (255, 255, 255), font=medium_font)
-                    if isinstance(user, discord.Member) or isinstance(user, discord.User):
+                    if isinstance(user, disnake.Member) or isinstance(user, disnake.User):
                         colour = user.colour.to_rgb()
                         if colour == (0, 0, 0):
                             colour = (37, 115, 189)
@@ -209,13 +209,13 @@ async def rankcard(user, username, currentxp, lastxp, nextxp, level, rank, backg
                         background.paste(rgbavatar, (19, 40), mask=mask)
                     draw.ellipse((160, 170, 208, 218), fill=0)
                     try:
-                        if user.status == discord.Status.online:
+                        if user.status == disnake.Status.online:
                             draw.ellipse((165, 175, 204, 214), fill=(67,181,129))
-                        elif user.status == discord.Status.offline:
+                        elif user.status == disnake.Status.offline:
                             draw.ellipse((165, 175, 204, 214), fill=(116, 127, 141))
-                        elif user.status == discord.Status.dnd:
+                        elif user.status == disnake.Status.dnd:
                             draw.ellipse((165, 175, 204, 214), fill=(240,71,71))
-                        elif user.status == discord.Status.idle:
+                        elif user.status == disnake.Status.idle:
                             draw.ellipse((165, 175, 204, 214), fill=(250,166,26))
                     except:
                         draw.ellipse((165, 175, 204, 214), fill=(114,137,218))
@@ -230,7 +230,7 @@ async def rankcard(user, username, currentxp, lastxp, nextxp, level, rank, backg
                         changeaxis = len("Rank #{} | Level {}".format(rank, level)) - 8
                         xaxis = 740 - (23*changeaxis)
                     draw.text((xaxis, 55), "Rank #{} | Level {}".format(rank, level), (255, 255, 255), font=medium_font)
-                    if isinstance(user, discord.Member) or isinstance(user, discord.User):
+                    if isinstance(user, disnake.Member) or isinstance(user, disnake.User):
                         colour = user.colour.to_rgb()
                         if colour == (0, 0, 0):
                             colour = (37, 115, 189)

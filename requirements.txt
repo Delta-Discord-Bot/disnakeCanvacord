@@ -1,1 +1,1 @@
-["wheel", "pillow", "discord", "asyncio", "aiohttp", "typing", "datetime"]
+["wheel", "pillow", "disnake", "asyncio", "aiohttp", "typing", "datetime"]

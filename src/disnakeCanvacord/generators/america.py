@@ -6,13 +6,13 @@ import asyncio
 import aiohttp
 from random import randint
 from io import BytesIO
-import discord
+import disnake
 from typing import Union
-from canvacord.generators.versionchecker import checkversion
+from disnakeCanvacord.generators.versionchecker import checkversion
 
-async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
+async def getavatar(user: Union[disnake.User, disnake.Member]) -> bytes:
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    disver = str(discord.__version__)
+    disver = str(disnake.__version__)
     if disver.startswith("1"):
         async with session.get(str(user.avatar_url)) as response:
             avatarbytes = await response.read()

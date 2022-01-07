@@ -6,13 +6,13 @@ import asyncio
 import aiohttp
 from random import randint
 from io import BytesIO
-import discord
-from canvacord.generators.versionchecker import checkversion
+import disnake
 from typing import Union
+from disnakeCanvacord.generators.versionchecker import checkversion
 
-async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
+async def getavatar(user: Union[disnake.User, disnake.Member]) -> bytes:
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    disver = str(discord.__version__)
+    disver = str(disnake.__version__)
     if disver.startswith("1"):
         async with session.get(str(user.avatar_url)) as response:
             avatarbytes = await response.read()
@@ -25,17 +25,16 @@ async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
 
 async def getbackground(background):
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Fjail.bmp?v=1628353108696") as response:
+    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Faffect.bmp?v=1628443415269") as response:
         backgroundbytes = await response.read()
     await session.close()
     return backgroundbytes
 
-async def jail(user):
-        base = Image.open(BytesIO(await getavatar(user))).resize((350, 350)).convert('LA')
-        overlay = Image.open(BytesIO(await getbackground("jail"))).resize((350, 350))
-        base.paste(overlay, (0, 0), overlay)
-
-        base = base.convert('RGBA')
+async def affect(user):
+        avatar = Image.open(BytesIO(await getavatar(user))).resize((200, 157)).convert('RGBA')
+        base = Image.open(BytesIO(await getbackground("affect"))).convert('RGBA')
+        base.paste(avatar, (180, 383, 380, 540), avatar)
+        base = base.convert('RGB')
         b = BytesIO()
         base.save(b, format='png')
         b.seek(0)

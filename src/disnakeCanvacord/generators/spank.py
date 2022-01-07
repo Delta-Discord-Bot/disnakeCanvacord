@@ -6,13 +6,13 @@ import asyncio
 import aiohttp
 from random import randint
 from io import BytesIO
-import discord
+import disnake
 from typing import Union
-from canvacord.generators.versionchecker import checkversion
+from disnakeCanvacord.generators.versionchecker import checkversion
 
-async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
+async def getavatar(user: Union[disnake.User, disnake.Member]) -> bytes:
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    disver = str(discord.__version__)
+    disver = str(disnake.__version__)
     if disver.startswith("1"):
         async with session.get(str(user.avatar_url)) as response:
             avatarbytes = await response.read()
@@ -25,26 +25,21 @@ async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
 
 async def getbackground(background):
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Fcommunism.gif?v=1628348497336") as response:
+    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Fspank.bmp?v=1628377031588") as response:
         backgroundbytes = await response.read()
     await session.close()
     return backgroundbytes
 
-async def communism(user):
-        avatar = Image.open(BytesIO(await getavatar(user))).resize((300, 300)).convert('RGBA')
-        image = Image.open(BytesIO(await getbackground("communism")))
-        avatar.putalpha(96)
-
-        out = []
-        for i in range(0, image.n_frames):
-            image.seek(i)
-            f = image.copy().convert('RGBA').resize((300, 300))
-            f.paste(avatar, (0, 0), avatar)
-            out.append(f.resize((256, 256)))
+async def spank(user1, user2):
+        avatar1 = Image.open(BytesIO(await getavatar(user1))).convert('RGBA').resize((140, 140))
+        avatar2 = Image.open(BytesIO(await getavatar(user2))).convert('RGBA').resize((120, 120))
+        image = Image.open(BytesIO(await getbackground("spank"))).resize((500, 500))
+        image.paste(avatar1, (225, 5), avatar1)
+        image.paste(avatar2, (350, 220), avatar2)
+        image = image.convert('RGBA')
 
         b = BytesIO()
-        out[0].save(b, format='gif', save_all=True, append_images=out[1:], loop=0, disposal=2, optimize=True, duration=40)
-        image.close()
+        image.save(b, format='png')
         b.seek(0)
         await checkversion()
         return b

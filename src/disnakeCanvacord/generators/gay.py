@@ -6,13 +6,13 @@ import asyncio
 import aiohttp
 from random import randint
 from io import BytesIO
-import discord
+import disnake
 from typing import Union
-from canvacord.generators.versionchecker import checkversion
+from disnakeCanvacord.generators.versionchecker import checkversion
 
-async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
+async def getavatar(user: Union[disnake.User, disnake.Member]) -> bytes:
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    disver = str(discord.__version__)
+    disver = str(disnake.__version__)
     if disver.startswith("1"):
         async with session.get(str(user.avatar_url)) as response:
             avatarbytes = await response.read()
@@ -25,18 +25,20 @@ async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
 
 async def getbackground(background):
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Faborted.bmp?v=1628443346071") as response:
+    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Fgay.bmp?v=1628353336997") as response:
         backgroundbytes = await response.read()
     await session.close()
     return backgroundbytes
 
-async def aborted(user):
-        avatar = Image.open(BytesIO(await getavatar(user))).convert('RGBA').resize((90, 90))
-        base = Image.open(BytesIO(await getbackground("aborted")))
-        base.paste(avatar, (390, 130), avatar)
-        base = base.convert('RGB')
+async def gay(user):
+        avatar = Image.open(BytesIO(await getavatar(user))).convert('RGBA')
+        image = Image.open(BytesIO(await getbackground("gay"))).convert('RGBA').resize(avatar.size)
+        image.putalpha(128)
+        avatar.paste(image, (0, 0), image)
+        avatar = avatar.convert('RGB')
+
         b = BytesIO()
-        base.save(b, format='png')
+        avatar.save(b, format='png')
         b.seek(0)
         await checkversion()
         return b

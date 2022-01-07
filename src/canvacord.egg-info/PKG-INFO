@@ -6,10 +6,10 @@ Home-page: https://github.com/BlazenBoi/canvacord.py/issues
 Author: Blazen
 Author-email: contact@fireballbot.com
 License: MIT
-Project-URL: Discord Server, https://discord.com/invite/mPU3HybBs9
+Project-URL: disnake Server, https://disnake.com/invite/mPU3HybBs9
 Project-URL: Bug Tracker, https://github.com/BlazenBoi/canvacord.py/issues
 Project-URL: Source, https://github.com/BlazenBoi/canvacord
-Keywords: canvacord,rankcard,image manipulation,meme,discord,discordpy,discord-py
+Keywords: canvacord,rankcard,image manipulation,meme,disnake,disnakepy,disnake-py
 Platform: UNKNOWN
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Intended Audience :: Developers
@@ -28,7 +28,7 @@ Description-Content-Type: text/markdown
 License-File: LICENSE
 License-File: AUTHORS.rst
 
-[![Discord](https://discord.com/api/guilds/872291125547921459/embed.png)](https://discord.gg/mPU3HybBs9)
+[![disnake](https://disnake.com/api/guilds/872291125547921459/embed.png)](https://disnake.gg/mPU3HybBs9)
 [![PyPi](https://img.shields.io/pypi/v/canvacord.svg)](https://pypi.org/project/canvacord)
 [![Python](https://img.shields.io/pypi/pyversions/dislash.py.svg)](https://pypi.python.org/pypi/canvacord)
 
@@ -58,14 +58,14 @@ python -m pip install canvacord
 ```
 
 # Examples
-ðŸ’¡ This library requires **[discord.py](https://github.com/Rapptz/discord.py)**.
+ðŸ’¡ This library requires **[disnake.py](https://github.com/Rapptz/disnake.py)**.
 
 
 ## Creating-Images
 
 ```python
-import discord
-from discord.ext import commands
+import disnake
+from disnake.ext import commands
 import canvacord
 
 client = commands.Bot(command_prefix="!")
@@ -81,84 +81,84 @@ async def rankcard(ctx):
     current_rank = 1
     background = None
     image = await canvacord.rankcard(user=user, username=username, currentxp=currentxp, lastxp=lastxp, nextxp=nextxp, level=current_level, rank=current_rank, background=background)
-    file = discord.File(filename="rankcard.png", fp=image)
+    file = disnake.File(filename="rankcard.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def triggered(ctx):
     user = ctx.author
     image = await canvacord.trigger(user)
-    file = discord.File(filename="triggered.gif", fp=image)
+    file = disnake.File(filename="triggered.gif", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def communism(ctx):
     user = ctx.author
     image = await canvacord.communism(user)
-    file = discord.File(filename="communism.gif", fp=image)
+    file = disnake.File(filename="communism.gif", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def jail(ctx):
     user = ctx.author
     image = await canvacord.jail(user)
-    file = discord.File(filename="jail.png", fp=image)
+    file = disnake.File(filename="jail.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def gay(ctx):
     user = ctx.author
     image = await canvacord.gay(user)
-    file = discord.File(filename="gay.png", fp=image)
+    file = disnake.File(filename="gay.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def hitler(ctx):
     user = ctx.author
     image = await canvacord.hitler(user)
-    file = discord.File(filename="hitler.png", fp=image)
+    file = disnake.File(filename="hitler.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def aborted(ctx):
     user = ctx.author
     image = await canvacord.aborted(user)
-    file = discord.File(filename="aborted.png", fp=image)
+    file = disnake.File(filename="aborted.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def affect(ctx):
     user = ctx.author
     image = await canvacord.affect(user)
-    file = discord.File(filename="affect.png", fp=image)
+    file = disnake.File(filename="affect.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def airpods(ctx):
     user = ctx.author
     image = await canvacord.airpods(user)
-    file = discord.File(filename="airpods.gif", fp=image)
+    file = disnake.File(filename="airpods.gif", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def america(ctx):
     user = ctx.author
     image = await canvacord.america(user)
-    file = discord.File(filename="america.gif", fp=image)
+    file = disnake.File(filename="america.gif", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def wanted(ctx):
     user = ctx.author
     image = await canvacord.wanted(user)
-    file = discord.File(filename="wanted.png", fp=image)
+    file = disnake.File(filename="wanted.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
 async def joke(ctx):
     user = ctx.author
     image = await canvacord.jokeoverhead(user)
-    file = discord.File(filename="jokeoverhead.png", fp=image)
+    file = disnake.File(filename="jokeoverhead.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
@@ -166,7 +166,7 @@ async def spank(ctx):
     user1 = ctx.author
     user2 = ctx.author
     image = await canvacord.spank(user1, user2)
-    file = discord.File(filename="spank.png", fp=image)
+    file = disnake.File(filename="spank.png", fp=image)
     await ctx.send(file=file)
 
 @client.command()
@@ -174,7 +174,7 @@ async def bed(ctx):
     user1 = ctx.author
     user2 = ctx.author
     image = await canvacord.bed(user1, user2)
-    file = discord.File(filename="bed.png", fp=image)
+    file = disnake.File(filename="bed.png", fp=image)
     await ctx.send(file=file)
     
 client.run("BOT_TOKEN")
@@ -182,7 +182,7 @@ client.run("BOT_TOKEN")
 
 
 # Links
-[![Discord](https://discord.com/api/guilds/872291125547921459/embed.png)](https://discord.gg/mPU3HybBs9)
+[![disnake](https://disnake.com/api/guilds/872291125547921459/embed.png)](https://disnake.gg/mPU3HybBs9)
 [![PyPi](https://img.shields.io/pypi/v/canvacord.svg)](https://pypi.org/project/canvacord)
 
 

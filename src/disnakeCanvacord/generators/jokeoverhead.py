@@ -6,13 +6,13 @@ import asyncio
 import aiohttp
 from random import randint
 from io import BytesIO
-import discord
+import disnake
+from disnakeCanvacord.generators.versionchecker import checkversion
 from typing import Union
-from canvacord.generators.versionchecker import checkversion
 
-async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
+async def getavatar(user: Union[disnake.User, disnake.Member]) -> bytes:
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    disver = str(discord.__version__)
+    disver = str(disnake.__version__)
     if disver.startswith("1"):
         async with session.get(str(user.avatar_url)) as response:
             avatarbytes = await response.read()
@@ -25,21 +25,19 @@ async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
 
 async def getbackground(background):
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Fspank.bmp?v=1628377031588") as response:
+    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Fjokeoverhead.png?v=1628446426629") as response:
         backgroundbytes = await response.read()
     await session.close()
     return backgroundbytes
 
-async def spank(user1, user2):
-        avatar1 = Image.open(BytesIO(await getavatar(user1))).convert('RGBA').resize((140, 140))
-        avatar2 = Image.open(BytesIO(await getavatar(user2))).convert('RGBA').resize((120, 120))
-        image = Image.open(BytesIO(await getbackground("spank"))).resize((500, 500))
-        image.paste(avatar1, (225, 5), avatar1)
-        image.paste(avatar2, (350, 220), avatar2)
-        image = image.convert('RGBA')
+async def jokeoverhead(user):
+        avatar = Image.open(BytesIO(await getavatar(user))).resize((95, 95)).convert('RGBA')
+        base = Image.open(BytesIO(await getbackground("joke"))).convert('RGBA')
+        base.paste(avatar, (150, 150), avatar)
+        base = base.convert('RGB')
 
         b = BytesIO()
-        image.save(b, format='png')
+        base.save(b, format='png')
         b.seek(0)
         await checkversion()
         return b

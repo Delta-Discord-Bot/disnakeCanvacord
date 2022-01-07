@@ -6,13 +6,13 @@ import asyncio
 import aiohttp
 from random import randint
 from io import BytesIO
-import discord
+import disnake
 from typing import Union
-from canvacord.generators.versionchecker import checkversion
+from disnakeCanvacord.generators.versionchecker import checkversion
 
-async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
+async def getavatar(user: Union[disnake.User, disnake.Member]) -> bytes:
     session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    disver = str(discord.__version__)
+    disver = str(disnake.__version__)
     if disver.startswith("1"):
         async with session.get(str(user.avatar_url)) as response:
             avatarbytes = await response.read()
@@ -23,19 +23,9 @@ async def getavatar(user: Union[discord.User, discord.Member]) -> bytes:
         await session.close()
     return avatarbytes
 
-async def getbackground(background):
-    session = aiohttp.ClientSession(loop=asyncio.get_event_loop())
-    async with session.get("https://cdn.glitch.com/dff50ce1-3805-4fdb-a7a5-8cabd5e53756%2Fhitler.bmp?v=1628376587311") as response:
-        backgroundbytes = await response.read()
-    await session.close()
-    return backgroundbytes
-
-async def hitler(user):
-        avatar = Image.open(BytesIO(await getavatar(user))).convert('RGBA').resize((140, 140))
-        image = Image.open(BytesIO(await getbackground("hitler")))
-        image.paste(avatar, (46, 43), avatar)
+async def avatar(user):
+        image = Image.open(BytesIO(await getavatar(user))).convert('RGBA').resize((140, 140))
         image = image.convert('RGB')
-
         b = BytesIO()
         image.save(b, format='png')
         b.seek(0)
